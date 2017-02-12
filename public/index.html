@@ -1,0 +1,40 @@
+<!doctype html>
+<html ng-app="app" >
+    <head>
+        <script src="/bower_components/angular/angular.js"></script>
+        <title>My blog</title>
+    </head>
+    <body ng-controller="SomeController as Ctrl">
+        <h1>My Heading</h1>
+        <h2>This is your post: {{Ctrl.formData.post}}</h2>
+        <h3>{{Ctrl.newPost}}</h3>
+        <button ng-show="!Ctrl.newPost" ng-click="Ctrl.newPost = !Ctrl.newPost">New Post</button>
+        <form ng-show="Ctrl.newPost">
+            <fieldset>
+                <input type="text" ng-model="Ctrl.formData.post">
+            </fieldset>
+            <button ng-click="Ctrl.newPost = !Ctrl.newPost">Cancel</button>
+            <button ng-click="Ctrl.addPost()">Submit</button>
+        </form>
+        <pre>
+            {{ Ctrl.formData }}
+        </pre>
+        <button ng-click="Ctrl.getPosts()">Get Posts</button>
+        <h3 ng-repeat="x in Ctrl.formData">{{x}}</h3>
+    </body>
+    <script>
+        angular
+            .module('app', [])
+            .controller('SomeController', SomeController);
+
+        function SomeController() {
+            var vm = this;
+            vm.newPost = false;
+            vm.formData = {name: "Jimmy", post: "nada"};
+
+            vm.addPost = function() {
+                console.log("you clicked me");
+            }
+        }
+    </script>
+</html>
