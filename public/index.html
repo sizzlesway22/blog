@@ -16,25 +16,9 @@
             <button ng-click="Ctrl.newPost = !Ctrl.newPost">Cancel</button>
             <button ng-click="Ctrl.addPost()">Submit</button>
         </form>
-        <pre>
-            {{ Ctrl.formData }}
-        </pre>
-        <button ng-click="Ctrl.getPosts()">Get Posts</button>
-        <h3 ng-repeat="x in Ctrl.formData">{{x}}</h3>
+        <br><br>
+        <button ng-click="Ctrl.showPosts = !Ctrl.showPosts">Show Posts</button>
+        <h3 ng-show="Ctrl.showPosts" ng-repeat="x in Ctrl.posts">{{x}}</h3>
     </body>
-    <script>
-        angular
-            .module('app', [])
-            .controller('SomeController', SomeController);
-
-        function SomeController() {
-            var vm = this;
-            vm.newPost = false;
-            vm.formData = {name: "Jimmy", post: "nada"};
-
-            vm.addPost = function() {
-                console.log("you clicked me");
-            }
-        }
-    </script>
+    <script src="js/main.js"></script>
 </html>
