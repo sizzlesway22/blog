@@ -6,19 +6,20 @@
     </head>
     <body ng-controller="SomeController as Ctrl">
         <h1>My Heading</h1>
-        <h2>This is your post: {{Ctrl.formData.post}}</h2>
         <h3>{{Ctrl.newPost}}</h3>
-        <button ng-show="!Ctrl.newPost" ng-click="Ctrl.newPost = !Ctrl.newPost">New Post</button>
-        <form ng-show="Ctrl.newPost">
+        <button ng-if="!Ctrl.newPost" ng-click="Ctrl.newPost = !Ctrl.newPost">New Post</button>
+        <form ng-if="Ctrl.newPost">
             <fieldset>
-                <input type="text" ng-model="Ctrl.formData.post">
+                <input type="text" name="input" ng-model="Ctrl.title">
+                <input type="text" name="input" ng-model="Ctrl.body">
             </fieldset>
             <button ng-click="Ctrl.newPost = !Ctrl.newPost">Cancel</button>
             <button ng-click="Ctrl.addPost()">Submit</button>
         </form>
-        <br><br>
+        <br/><br/>
+        <my-directive></my-directive>
         <button ng-click="Ctrl.showPosts = !Ctrl.showPosts">Show Posts</button>
-        <h3 ng-show="Ctrl.showPosts" ng-repeat="x in Ctrl.posts">{{x}}</h3>
+        <h3 ng-if="Ctrl.showPosts" ng-repeat="x in Ctrl.posts">{{x}}</h3>
     </body>
     <script src="js/main.js"></script>
 </html>
