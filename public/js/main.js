@@ -25,6 +25,13 @@ function SomeController($http) {
             alert(response);
         });
         console.log("you clicked me");
+        vm.title = "";
+        vm.body = "";
+    };
+
+    vm.editPost = function($event) {
+        vm.newPost = true;
+        vm.message = $event.currentTarget;
     };
 
     vm.getPosts();

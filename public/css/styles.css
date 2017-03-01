@@ -1,4 +1,17 @@
+.container {
+    margin-top: 30px;
+}
+
 .postTiles {
     float: left;
     margin-left: 20px;
+    background-color: #94bcfc;
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+};
+
+.clearfix {
+    display: block;
+    clear: both;
 }

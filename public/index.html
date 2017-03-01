@@ -9,9 +9,17 @@
         <title>My blog</title>
     </head>
     <body ng-controller="SomeController as Ctrl">
-        <div class="container">
-        <h1>My Heading</h1>
-        <h3>{{Ctrl.newPost}}</h3>
+    <div class="container">
+        <h1>current target: {{Ctrl.message}}</h1>    
+        <my-directive></my-directive>
+        <button type="button" class="btn btn-info" ng-click="Ctrl.showPosts = !Ctrl.showPosts">Show Posts</button>
+        <br><br>
+        <div class="postTiles" ng-if="Ctrl.showPosts" ng-click="Ctrl.editPost($event)" ng-repeat="x in Ctrl.posts">
+            <h3>{{x.title}}</h3><hr>
+            <h4>{{x.body}}</h4>
+        </div>
+        <div class="clearfix"></div>
+        <br><br>
         <button type="button" class="btn btn-primary" ng-if="!Ctrl.newPost" ng-click="Ctrl.newPost = !Ctrl.newPost">New Post</button>
         <form class="jumbotron" ng-if="Ctrl.newPost">
             <fieldset>
@@ -26,15 +34,7 @@
                 <button type="button" class="btn btn-success" ng-click="Ctrl.addPost()">Submit</button>
             </fieldset>
         </form>
-        <br><br>
-        <my-directive></my-directive>
-        <button type="button" class="btn btn-info" ng-click="Ctrl.showPosts = !Ctrl.showPosts">Show Posts</button>
-        <br><br>
-        <div class="postTiles" ng-if="Ctrl.showPosts" ng-repeat="x in Ctrl.posts">
-            <h3>Title: {{x.title}}</h3>
-            <h4>Body: {{x.body}}</h4>
-        </div>
-        </div>
+    </div>
     </body>
     <script src="js/main.js"></script>
 </html>
