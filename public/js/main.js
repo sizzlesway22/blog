@@ -29,9 +29,10 @@ function SomeController($http) {
         vm.body = "";
     };
 
-    vm.editPost = function($event) {
+    vm.editPost = function(index) {
         vm.newPost = true;
-        vm.message = $event.currentTarget;
+        vm.title = vm.posts[index].title;
+        vm.body = vm.posts[index].body;
     };
 
     vm.getPosts();

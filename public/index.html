@@ -9,14 +9,13 @@
         <title>My blog</title>
     </head>
     <body ng-controller="SomeController as Ctrl">
-    <div class="container">
-        <h1>current target: {{Ctrl.message}}</h1>    
+    <div class="container">  
         <my-directive></my-directive>
         <button type="button" class="btn btn-info" ng-click="Ctrl.showPosts = !Ctrl.showPosts">Show Posts</button>
         <br><br>
-        <div class="postTiles" ng-if="Ctrl.showPosts" ng-click="Ctrl.editPost($event)" ng-repeat="x in Ctrl.posts">
-            <h3>{{x.title}}</h3><hr>
-            <h4>{{x.body}}</h4>
+        <div class="postTiles" ng-if="Ctrl.showPosts" ng-repeat="post in Ctrl.posts" ng-click="Ctrl.editPost($index)">
+            <h3>{{post.title}}</h3><hr>
+            <h4>{{post.body}}</h4>
         </div>
         <div class="clearfix"></div>
         <br><br>
