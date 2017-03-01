@@ -2,24 +2,39 @@
 <html ng-app="app" >
     <head>
         <script src="/bower_components/angular/angular.js"></script>
+        <script src="/bower_components/jquery/dist/jquery.js"></script>
+        <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+        <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css">
+        <link rel="stylesheet" href="css/styles.css">
         <title>My blog</title>
     </head>
     <body ng-controller="SomeController as Ctrl">
+        <div class="container">
         <h1>My Heading</h1>
         <h3>{{Ctrl.newPost}}</h3>
-        <button ng-if="!Ctrl.newPost" ng-click="Ctrl.newPost = !Ctrl.newPost">New Post</button>
-        <form ng-if="Ctrl.newPost">
+        <button type="button" class="btn btn-primary" ng-if="!Ctrl.newPost" ng-click="Ctrl.newPost = !Ctrl.newPost">New Post</button>
+        <form class="jumbotron" ng-if="Ctrl.newPost">
             <fieldset>
-                <input type="text" name="input" ng-model="Ctrl.title">
-                <input type="text" name="input" ng-model="Ctrl.body">
+                <div class="form-group">
+                    <label for="postTitle">Title</label>
+                    <input type="text" class="form-control" ng-model="Ctrl.title" id="postTitle">
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" ng-model="Ctrl.body" rows="3"></textarea>
+                </div>
+                <button type="button" class="btn btn-danger" ng-click="Ctrl.newPost = !Ctrl.newPost">Cancel</button>
+                <button type="button" class="btn btn-success" ng-click="Ctrl.addPost()">Submit</button>
             </fieldset>
-            <button ng-click="Ctrl.newPost = !Ctrl.newPost">Cancel</button>
-            <button ng-click="Ctrl.addPost()">Submit</button>
         </form>
-        <br/><br/>
+        <br><br>
         <my-directive></my-directive>
-        <button ng-click="Ctrl.showPosts = !Ctrl.showPosts">Show Posts</button>
-        <h3 ng-if="Ctrl.showPosts" ng-repeat="x in Ctrl.posts">{{x}}</h3>
+        <button type="button" class="btn btn-info" ng-click="Ctrl.showPosts = !Ctrl.showPosts">Show Posts</button>
+        <br><br>
+        <div class="postTiles" ng-if="Ctrl.showPosts" ng-repeat="x in Ctrl.posts">
+            <h3>Title: {{x.title}}</h3>
+            <h4>Body: {{x.body}}</h4>
+        </div>
+        </div>
     </body>
     <script src="js/main.js"></script>
 </html>
