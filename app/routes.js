@@ -14,6 +14,16 @@ module.exports = function (app) {
         res.json(posts);
     });
 
+    app.put('/posts/:id', function(req, res) {
+        posts[req.params.id] = req.body;
+        res.json(posts);
+    });
+
+    app.delete('/posts/:id', function(req, res) {
+        posts.splice([req.params.id], 1);
+        res.json(posts);
+    });
+
     app.get('*', function (req, res) {
         res.sendFile(__dirname + '../public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
     });
