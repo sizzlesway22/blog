@@ -7,10 +7,16 @@ var database = require('./config/database'); 			// load the database config
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
+var sass = require('express-sass-middleware');
 
 // configuration ===============================================================
 //mongoose.connect(database.localUrl); 	// Connect to local MongoDB instance. A remoteUrl is also available (modulus.io)
 
+app.get('/css/styles.css', sass({
+    file: './sass/styles.sass',
+    precompile: true,
+    indentedSyntax: true,
+}));
 app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
 app.use(morgan('dev')); // log every request to the console
