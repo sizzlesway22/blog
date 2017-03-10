@@ -33,7 +33,6 @@ function SomeController($http) {
         }, function(response) {
             alert(response);
         });
-        console.log("you clicked me");
         vm.title = "";
         vm.body = "";
     };
