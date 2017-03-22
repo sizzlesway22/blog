@@ -9,7 +9,17 @@
         <title>My blog</title>
     </head>
     <body ng-controller="SomeController as Ctrl">
-    <div class="container">  
+    <div class="container">
+        <header>
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+                <ul class="nav navbar-nav">
+
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/drinks">Dashboard</a></li>
+
+                </ul>
+            </nav>
+        </header>
         <my-directive></my-directive>
         <h1>My current post: {{Ctrl.message}}</h1>
         <button type="button" class="btn btn-info" ng-click="Ctrl.showPosts = !Ctrl.showPosts">Show Posts</button>
