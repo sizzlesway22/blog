@@ -3,10 +3,9 @@
 
     angular
         .module('app.core')
-        .controller('SomeController', SomeController)
-        .directive('myDirective', testDirective);
+        .controller('SomeController', SomeController);
 
-    function SomeController($http) {
+    function SomeController($http, myService, myFactory) {
     var vm = this;
     vm.posts = [];
     vm.showForm = false;
@@ -14,6 +13,9 @@
     vm.editing = false;
     vm.post = "";
     vm.message = "";
+
+    vm.fromService = myService.sayHello("Jaime");
+    vm.fromFactory = myFactory.sayGoodbye("Kevin");
 
     vm.getPosts = function() {
         $http.get("/posts")
@@ -76,12 +78,6 @@
     }
 
     vm.getPosts();
-}
-
-function testDirective() {
-    return {
-        template: "I am a cool directive type thing!"
-    };
 }
 
 })();
