@@ -2,6 +2,7 @@
 <html ng-app="app" >
     <head>
         <script src="/bower_components/angular/angular.js"></script>
+        <script src="/bower_components/angular-route/angular-route.js"></script>
         <script src="/bower_components/jquery/dist/jquery.js"></script>
         <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
         <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css">
@@ -24,14 +25,20 @@
                     <div class="collapse navbar-collapse" id="myNavbar">
                         <ul class="nav navbar-nav">
 
+<<<<<<< HEAD
                             <li><a href="/">Home</a></li>
                             <li><a href="/dashboard">Dashboard</a></li>
+=======
+                    <li><a href="#/">Home</a></li>
+                    <li><a href="#dashboard">Dashboard</a></li>
+>>>>>>> 4384d050b6f7376d8650d08556ce3b63804a4e95
 
                         </ul>
                     </div>
                 </div>
             </nav>
         </header>
+<<<<<<< HEAD
         
         <div class="container">
         <my-directive></my-directive>
@@ -62,10 +69,23 @@
         </form>
         <p ng-bind="Ctrl.fromService"></p>
         <p ng-bind="Ctrl.fromFactory"></p>
+=======
+
+        <my-directive></my-directive>
+
+        <h1>Hello</h1>
+        <div ng-view></div>
+        
+
+        <p ng-bind="Ctrl.fromService"><p>
+        <p ng-bind="Ctrl.fromFactory"><p>
+>>>>>>> 4384d050b6f7376d8650d08556ce3b63804a4e95
     </div>
     </body>
     <script src="js/main.js"></script>
     <script src="js/core.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/controller.home.js"></script>
     <script src="js/stuff.js"></script>
     <script src="js/directive.js"></script>
     <script src="js/service.js"></script>
