@@ -9,17 +9,31 @@
         <title>My blog</title>
     </head>
     <body ng-controller="SomeController as Ctrl">
-    <div class="container">
+    
         <header>
-            <nav class="navbar navbar-inverse navbar-fixed-top">
-                <ul class="nav navbar-nav">
+            <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>                        
+                        </button>
+                        <a class="navbar-brand" href="#">WebSiteName</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="myNavbar">
+                        <ul class="nav navbar-nav">
 
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/drinks">Dashboard</a></li>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/dashboard">Dashboard</a></li>
 
-                </ul>
+                        </ul>
+                    </div>
+                </div>
             </nav>
         </header>
+        
+        <div class="container">
         <my-directive></my-directive>
         <h1>My current post: {{Ctrl.message}}</h1>
         <button type="button" class="btn btn-info" ng-click="Ctrl.showPosts = !Ctrl.showPosts">Show Posts</button>
@@ -46,8 +60,8 @@
                 <button type="button" class="btn btn-info" ng-if="Ctrl.editing" ng-click="Ctrl.deletePost()">Delete</button>
             </fieldset>
         </form>
-        <p ng-bind="Ctrl.fromService"><p>
-        <p ng-bind="Ctrl.fromFactory"><p>
+        <p ng-bind="Ctrl.fromService"></p>
+        <p ng-bind="Ctrl.fromFactory"></p>
     </div>
     </body>
     <script src="js/main.js"></script>
