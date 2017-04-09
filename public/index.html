@@ -27,7 +27,7 @@
 
 
                             <li><a href="/">Home</a></li>
-                            <li><a href="/dashboard">Dashboard</a></li>
+                            <li><a href="#dashboard">Dashboard</a></li>
 
 
                         </ul>
@@ -64,27 +64,21 @@
                 <button type="button" class="btn btn-info" ng-if="Ctrl.editing" ng-click="Ctrl.deletePost()">Delete</button>
             </fieldset>
         </form>
-        <p ng-bind="Ctrl.fromService"></p>
-        <p ng-bind="Ctrl.fromFactory"></p>
+        </div>
 
-
-        <my-directive></my-directive>
-
-        <h1>Hello</h1>
         <div ng-view></div>
         
-
         <p ng-bind="Ctrl.fromService"><p>
         <p ng-bind="Ctrl.fromFactory"><p>
 
-    </div>
+    
     </body>
-    <script src="js/main.js"></script>
-    <script src="js/core.js"></script>
-    <script src="js/config.js"></script>
+    <script src="module.app.js"></script>
+    <script src="js/core/module.core.js"></script>
+    <script src="js/core/config.js"></script>
     <script src="js/controller.home.js"></script>
-    <script src="js/stuff.js"></script>
-    <script src="js/directive.js"></script>
-    <script src="js/service.js"></script>
-    <script src="js/factory.js"></script>
+    <script src="js/controller.main.js"></script>
+    <script src="js/core/directive.js"></script>
+    <script src="js/core/service.js"></script>
+    <script src="js/core/factory.js"></script>
 </html>
