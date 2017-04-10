@@ -15,7 +15,7 @@
             })
             .when('/dashboard', {
                 templateUrl: 'dashboard.html',
-                controller: 'MainController',
+                controller: 'DashboardController',
                 controllerAs: 'Ctrl'
             });
 

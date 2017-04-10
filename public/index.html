@@ -47,31 +47,7 @@
         <p ng-bind="Ctrl.fromService"><p>
         <p ng-bind="Ctrl.fromFactory"><p>
 
-        <h1>My current post: {{Ctrl.message}}</h1>
-        <button type="button" class="btn btn-info" ng-click="Ctrl.showPosts = !Ctrl.showPosts">Show Posts</button>
-        <br><br>
-        <div class="postTiles" ng-if="Ctrl.showPosts" ng-repeat="post in Ctrl.posts" ng-click="Ctrl.editPost($index)">
-            <h3>{{post.title}}</h3><hr>
-            <h4>{{post.body}}</h4>
-        </div>
-        <div class="clearfix"></div>
-        <br><br>
-        <button type="button" class="btn btn-primary" ng-if="!Ctrl.showForm" ng-click="Ctrl.newPost()">New Post</button>
-        <form class="jumbotron" ng-if="Ctrl.showForm">
-            <fieldset>
-                <div class="form-group">
-                    <label for="postTitle">Title</label>
-                    <input type="text" class="form-control" ng-model="Ctrl.title" id="postTitle">
-                </div>
-                <div class="form-group">
-                    <textarea class="form-control" ng-model="Ctrl.body" rows="3" required></textarea>
-                </div>
-                <button type="button" class="btn btn-danger" ng-click="Ctrl.newPost()">Cancel</button>
-                <button type="button" class="btn btn-success" ng-click="Ctrl.addPost()">Submit</button>
-                <button type="button" class="btn btn-success" ng-click="Ctrl.commitEdit()">Edit</button>
-                <button type="button" class="btn btn-info" ng-if="Ctrl.editing" ng-click="Ctrl.deletePost()">Delete</button>
-            </fieldset>
-        </form>
+        
         </div>
         </div>
 
@@ -82,8 +58,10 @@
     <script src="module.app.js"></script>
     <script src="js/core/module.core.js"></script>
     <script src="js/dashboard/module.dashboard.js"></script>
-    <script src="js/controller.home.js"></script>
+
     <script src="js/controller.main.js"></script>
+    <script src="js/core/controller.core.js"></script>
+    
     <script src="js/core/directive.js"></script>
     <script src="js/core/service.js"></script>
     <script src="js/core/factory.js"></script>
