@@ -1,4 +1,4 @@
-(function() {
+/*(function() {
     'use strict';
 
     angular
@@ -14,9 +14,9 @@
             })
             .when('/dashboard', {
                 templateUrl: 'dashboard.html',
-                controller: 'SomeController',
+                controller: 'MainController',
                 controllerAs: 'Ctrl'
             });
     }
 
-})();
+})();*/

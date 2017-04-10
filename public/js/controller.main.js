@@ -2,10 +2,10 @@
     'use strict';
 
     angular
-        .module('app.core')
-        .controller('SomeController', SomeController);
+        .module('app')
+        .controller('MainController', MainController);
 
-    function SomeController($http, myService, myFactory) {
+    function MainController($http, myService, myFactory) {
     var vm = this;
     vm.posts = [];
     vm.showForm = false;
