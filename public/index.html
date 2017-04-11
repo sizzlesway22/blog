@@ -2,17 +2,20 @@
 <html ng-app="app" >
     <head>
         <meta charset="utf-8">
-        <script src="/bower_components/angular/angular.js"></script>
-        <script src="/bower_components/angular-route/angular-route.js"></script>
-        <script src="/bower_components/jquery/dist/jquery.js"></script>
-        <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
-        <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="libs/angular/angular.js"></script>
+        <script src="libs/angular-route/angular-route.js"></script>
+        <script src="libs/jquery/dist/jquery.js"></script>
+        <script src="libs/bootstrap/dist/js/bootstrap.js"></script>
+        <script type="text/javascript" src="//pubnub.github.io/eon/v/eon/0.0.10/eon.js"></script>
+	    <link type="text/css" rel="stylesheet" href="//pubnub.github.io/eon/v/eon/0.0.10/eon.css"/>
+        <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.css">
         <link rel="stylesheet" href="css/styles.css">
         <title>My blog</title>
         <base href="/">
     </head>
     <body>
-        <div ng-controller="MainController as Ctrl">
+    <div ng-controller="MainController as Ctrl">
     
         <header>
             <nav class="navbar navbar-inverse">
@@ -28,10 +31,8 @@
                     <div class="collapse navbar-collapse" id="myNavbar">
                         <ul class="nav navbar-nav">
 
-
                             <li><a href="#/">Home</a></li>
                             <li><a href="#dashboard">Dashboard</a></li>
-
 
                         </ul>
                     </div>
@@ -39,21 +40,25 @@
             </nav>
         </header>
 
-        
         <div class="container">
 
-        <my-directive></my-directive>
+            <div class="col-sm-6">
+                <my-directive></my-directive>
+                <p ng-bind="Ctrl.fromService"></p>
+                <p ng-bind="Ctrl.fromFactory"></p>
+            </div>
 
-        <p ng-bind="Ctrl.fromService"><p>
-        <p ng-bind="Ctrl.fromFactory"><p>
-
-        
         </div>
-        </div>
+    </div>
 
         <div ng-view></div>
 
-    
+    <div class="container">
+
+        <div id="myMap" class="col-sm-6"></div>
+
+    </div>
+
     </body>
     <script src="module.app.js"></script>
     <script src="js/core/module.core.js"></script>
