@@ -26,44 +26,8 @@
         <base href="/">
     </head>
     <body>
-    <div ng-controller="MainController as Ctrl">
-    
-        <header>
-            <nav class="navbar navbar-inverse">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>                        
-                        </button>
-                        <a class="navbar-brand" href="#">My SPA</a>
-                    </div>
-                    <div class="collapse navbar-collapse" id="myNavbar">
-                        <ul class="nav navbar-nav">
-
-                            <li><a href="/">Home</a></li>
-                            <li><a href="/dashboard">Dashboard</a></li>
-
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </header>
-
-        <div class="container">
-
-            <div>
-                <my-directive></my-directive>
-                <p ng-bind="Ctrl.fromService"></p>
-                <p ng-bind="Ctrl.fromFactory"></p>
-            </div>
-
-            <div ng-view></div>
-
-            <div id="myMap"></div>
-
-        </div>
+        <header ng-include="'header.html'"></header>
+        <main ng-view></main>
 
     </body>
     

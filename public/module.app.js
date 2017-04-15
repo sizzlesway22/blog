@@ -17,6 +17,8 @@
                 templateUrl: 'dashboard.html',
                 controller: 'DashboardController',
                 controllerAs: 'Ctrl'
+            }).otherwise({
+                redirectTo: '/'
             });
 
         $locationProvider.html5Mode(true);
