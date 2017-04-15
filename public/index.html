@@ -1,5 +1,6 @@
 <!doctype html>
 <html ng-app="app" >
+
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,10 +8,12 @@
         <script src="libs/angular-route/angular-route.js"></script>
         <script src="libs/jquery/dist/jquery.js"></script>
         <script src="libs/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="libs/angular-animate/angular-animate.js"></script>
         <script type="text/javascript" src="//pubnub.github.io/eon/v/eon/0.0.10/eon.js"></script>
 	    <link type="text/css" rel="stylesheet" href="//pubnub.github.io/eon/v/eon/0.0.10/eon.css"/>
         <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.css">
         <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="css/animations.css">
 
         <script src="js/module.app.js"></script>
         <script src="js/core/module.core.js"></script>
@@ -24,7 +27,9 @@
         <title>My blog</title>
         <base href="/">
     </head>
+
     <body>
+        
         <header ng-include="'header.html'"></header>
         <main ng-view></main>
 
