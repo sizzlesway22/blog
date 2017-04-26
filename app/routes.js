@@ -1,4 +1,4 @@
-module.exports = function (app) {
+module.exports = function (app, passport) {
 
     var posts = [
         {title: "first one", body: "just stuff"},
@@ -29,26 +29,29 @@ module.exports = function (app) {
         res.json(posts);
     });
 
-    app.post('/login', function(req, res) {
-        var user = users.indexOf(req.body.username);
-        if (user >= 0) {
-            if (users[user].password == req.body.password) {
-                res.json(users);
-            } else {
-                res.json({ success: false, message: 'Authentication failed. Wrong password.' });
-            };
-        } else {
-            res.json({ success: false, message: 'It fucked up' });
-        };
+    app.post('/login',
+        passport.authenticate('login'),
+        function(req, res) {
+            res.redirect('/loginSuccess');
+        });
+
+    app.post('/register',
+        passport.authenticate('signup'),
+        function(req, res) {
+            res.redirect('/registerSuccess');
+        });
+
+    app.get('/registerSuccess', function(req, res, next) {
+        res.send('Successfully registered');
     });
 
-    app.post('/register', function(req, res) {
-        res.json({ success: false, message: 'Hold on to your butts' });
+    app.get('/loginSuccess', function(req, res, next) {
+        res.send('Successfully authenticated');
     });
 
     app.get('/users', function(req, res) {
         res.json(users);
-    })
+    });
 
     app.get('*', function (req, res) {
         res.sendFile(__dirname + '../public/index.html'); // load the single view file (angular will handle the page changes on the front-end)

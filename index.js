@@ -1,16 +1,18 @@
 // set up ======================================================================
 var express = require('express');
-var app = express(); 						// create our app w/ express
-var mongoose = require('mongoose'); 				// mongoose for mongodb
-var port = process.env.PORT || 7001; 				// set the port
-var database = require('./config/database'); 			// load the database config
+var app = express();
+var mongoose = require('mongoose');
+var passport = require('passport');
+var session = require('express-session');
+var port = process.env.PORT || 7001;
+var database = require('./config/database');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var sass = require('express-sass-middleware');
 
 // configuration ===============================================================
-//mongoose.connect(database.localUrl); 	// Connect to local MongoDB instance. A remoteUrl is also available (modulus.io)
+mongoose.connect(database.localUrl);
 
 app.get('/css/styles.css', sass({
     file: './sass/styles.sass',
@@ -30,9 +32,19 @@ app.use(function(req, res, next) {
     next();
 });
 
+// passport ====================================================================
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+//app.set('superSecret', process.env.TOKEN_SECRET);
+require('./config/passport')(passport);
 
 // routes ======================================================================
-require('./app/routes.js')(app);
+require('./app/routes.js')(app, passport);
 
 // listen (start app with node server.js) ======================================
 app.listen(port);

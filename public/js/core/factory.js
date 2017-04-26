@@ -3,16 +3,23 @@
 
     angular
         .module('app.core')
-        .factory('myFactory', testFactory);
+        .factory('userFactory', Users);
 
-    function testFactory() {
+    function Users($http) {
         return {
-            sayGoodbye: function(text) {
-                return "Factory says \"Goodbye " + text + "\"";
-            }  
-        } 
+			get : function() {
+				return $http.get('/users');
+			},
+			login : function(postData) {
+				return $http.post('/login', postData);
+			},
+			register : function(postData) {
+				return $http.post('/register', postData);
+			},
+			delete : function(id) {
+				return $http.delete('/users/' + id);
+			}
+		}
     }
-
-
 
 })();

@@ -19,8 +19,9 @@
                 <textarea class="form-control" ng-model="Ctrl.body" rows="3" required></textarea>
             </div>
             <button type="button" class="btn btn-danger" ng-click="Ctrl.newPost()">Cancel</button>
-            <button type="button" class="btn btn-success" ng-click="Ctrl.addPost()">Submit</button>
-            <button type="button" class="btn btn-success" ng-click="Ctrl.commitEdit()">Edit</button>
+            <button type="button" class="btn btn-success" ng-if="!Ctrl.editing" ng-click="Ctrl.addPost()">Submit</button>
+            <button type="button" class="btn btn-success" ng-if="Ctrl.editing" ng-click="Ctrl.commitEdit()">Edit</button>
+            <button type="button" class="btn btn-warning" ng-if="Ctrl.editing" ng-click="Ctrl.newPost()">Clear Form</button>
             <button type="button" class="btn btn-info" ng-if="Ctrl.editing" ng-click="Ctrl.deletePost()">Delete</button>
         </fieldset>
     </form>

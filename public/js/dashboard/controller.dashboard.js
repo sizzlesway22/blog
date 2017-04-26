@@ -5,7 +5,7 @@
         .module('app.dashboard')
         .controller('DashboardController', DashboardController);
 
-    function DashboardController($http, myService, myFactory) {
+    function DashboardController($http, myService, myFactory, userFactory) {
         var vm = this;
         vm.posts = [];
         vm.showForm = false;
@@ -18,7 +18,10 @@
         vm.message = 'this is your dashboard, using a controller';
 
         vm.getUsers = function() {
-            vm.message = 'not done yet';
+            userFactory.get()
+            .then(function(response) {
+                vm.message = response.data;
+            });
         };
 
         vm.getPosts = function() {

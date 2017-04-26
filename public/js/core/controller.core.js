@@ -5,12 +5,12 @@
         .module('app')
         .controller('HomeController', HomeController);
 
-    function HomeController($http, myService, myFactory) {
+    function HomeController($http, myService, myFactory, userFactory) {
         var vm = this;
         vm.message = 'controllers are awesome';
 
         vm.login = function() {
-            $http.post('/login', {username:vm.username, password:vm.password})
+            userFactory.login({username:vm.username, password:vm.password})
             .then(function(response) {
                 vm.message = response.data;
             }, function(response) {
@@ -19,7 +19,7 @@
         }
 
         vm.register = function() {
-            $http.post('/register', {username:vm.username, password:vm.password})
+            userFactory.register({username:vm.username, password:vm.password})
             .then(function(response) {
                 vm.message = response.data;
             }, function(response) {
