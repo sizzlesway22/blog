@@ -2,26 +2,26 @@
     'use strict';
 
     angular
-        .module('app.core', ['ngRoute'])
+        .module('app.core', ['ui.router'])
         .config(config);
 
-    function config($routeProvider, $locationProvider) {
+    function config($stateProvider, $urlRouterProvider) {
 
-        $routeProvider
-            .when('/', {
+        $urlRouterProvider.otherwise('/home');
+        
+        $stateProvider
+            .state('home', {
+                url: '/home',
                 templateUrl: 'home.html',
-                controller: 'HomeController',
-                controllerAs: 'Home'
+                controller: 'HomeController as Home'
             })
-            .when('/dashboard', {
+            .state('dashboard', {
+                url: '/dashboard',
                 templateUrl: 'dashboard.html',
-                controller: 'DashboardController',
-                controllerAs: 'Ctrl'
-            }).otherwise({
-                redirectTo: '/'
+                controller: 'DashboardController as Ctrl'
             });
 
-        $locationProvider.html5Mode(true);
+        //$locationProvider.html5Mode(true);
     }
 
 })();

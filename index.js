@@ -2,7 +2,7 @@
 var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
-var passport = require('passport');
+//var passport = require('passport');
 var session = require('express-session');
 var port = process.env.PORT || 7001;
 var database = require('./config/database');
@@ -12,7 +12,7 @@ var methodOverride = require('method-override');
 var sass = require('express-sass-middleware');
 
 // configuration ===============================================================
-mongoose.connect(database.localUrl);
+//mongoose.connect(database.localUrl);
 
 app.get('/css/styles.css', sass({
     file: './sass/styles.sass',
@@ -32,19 +32,21 @@ app.use(function(req, res, next) {
     next();
 });
 
+require('./app/models/user');
+
 // passport ====================================================================
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: true,
 }));
-app.use(passport.initialize());
-app.use(passport.session());
+//app.use(passport.initialize());
+//app.use(passport.session());
 //app.set('superSecret', process.env.TOKEN_SECRET);
-require('./config/passport')(passport);
+//require('./config/passport')(passport);
 
 // routes ======================================================================
-require('./app/routes.js')(app, passport);
+require('./app/routes.js')(app);
 
 // listen (start app with node server.js) ======================================
 app.listen(port);

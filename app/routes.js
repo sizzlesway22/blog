@@ -1,4 +1,4 @@
-module.exports = function (app, passport) {
+module.exports = function (app) {
 
     var posts = [
         {title: "first one", body: "just stuff"},
@@ -27,26 +27,6 @@ module.exports = function (app, passport) {
     app.delete('/posts/:id', function(req, res) {
         posts.splice([req.params.id], 1);
         res.json(posts);
-    });
-
-    app.post('/login',
-        passport.authenticate('login'),
-        function(req, res) {
-            res.redirect('/loginSuccess');
-        });
-
-    app.post('/register',
-        passport.authenticate('signup'),
-        function(req, res) {
-            res.redirect('/registerSuccess');
-        });
-
-    app.get('/registerSuccess', function(req, res, next) {
-        res.send('Successfully registered');
-    });
-
-    app.get('/loginSuccess', function(req, res, next) {
-        res.send('Successfully authenticated');
     });
 
     app.get('/users', function(req, res) {
