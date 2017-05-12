@@ -1,3 +1,5 @@
+var User = require('./models/user');
+
 module.exports = function (app) {
 
     var posts = [
@@ -32,6 +34,22 @@ module.exports = function (app) {
     app.get('/users', function(req, res) {
         res.json(users);
     });
+
+    app.post('/register', function(req, res) {
+        var user = new User({
+            email: req.body.username,
+            name: req.body.name
+        });
+        user.setPassword(req.body.password);
+        user.save(function(err, newUser) {
+            if (err) {
+                res.send(err)
+            } else {
+                var token = newUser.generateJwt();
+                res.json(token);
+            };
+        })
+    })
 
     app.get('*', function (req, res) {
         res.sendFile(__dirname + '../public/index.html'); // load the single view file (angular will handle the page changes on the front-end)

@@ -19,7 +19,7 @@
         }
 
         vm.register = function() {
-            userFactory.register({username:vm.username, password:vm.password})
+            userFactory.register({username:vm.username, name:vm.name, password:vm.password})
             .then(function(response) {
                 vm.message = response.data;
             }, function(response) {

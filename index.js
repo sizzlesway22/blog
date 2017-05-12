@@ -12,7 +12,7 @@ var methodOverride = require('method-override');
 var sass = require('express-sass-middleware');
 
 // configuration ===============================================================
-//mongoose.connect(database.localUrl);
+mongoose.connect(database.localUrl);
 
 app.get('/css/styles.css', sass({
     file: './sass/styles.sass',
@@ -32,7 +32,7 @@ app.use(function(req, res, next) {
     next();
 });
 
-require('./app/models/user');
+//require('./app/models/user');
 
 // passport ====================================================================
 app.use(session({
