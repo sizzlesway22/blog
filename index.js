@@ -8,6 +8,7 @@ var port = process.env.PORT || 7001;
 var database = require('./config/database');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 var methodOverride = require('method-override');
 var sass = require('express-sass-middleware');
 
@@ -21,6 +22,7 @@ app.get('/css/styles.css', sass({
 }));
 app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
 app.use(morgan('dev')); // log every request to the console
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({'extended': 'true'})); // parse application/x-www-form-urlencoded
 app.use(bodyParser.json()); // parse application/json
 app.use(bodyParser.json({type: 'application/vnd.api+json'})); // parse application/vnd.api+json as json
@@ -32,14 +34,12 @@ app.use(function(req, res, next) {
     next();
 });
 
-//require('./app/models/user');
-
 // passport ====================================================================
-app.use(session({
+/*app.use(session({
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: true,
-}));
+}));*/
 //app.use(passport.initialize());
 //app.use(passport.session());
 //app.set('superSecret', process.env.TOKEN_SECRET);

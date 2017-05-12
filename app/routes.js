@@ -41,7 +41,7 @@ module.exports = function (app) {
         });
     });
 
-    app.post('/login', function(req, res) {
+    app.post('/login', function(req, res, next) {
         User.findOne({email:req.body.email}, function(err, user) {
             if (err) {
                 res.json(err);
@@ -53,13 +53,14 @@ module.exports = function (app) {
                     res.json({success: false, message: 'Authentication failed. Wrong password.'});
                 } else {
                     var token = user.generateJwt();
-                    res.json(token);
+                    res.cookie('access_token', token);
+                    next();
                 };
             };
         });
     });
 
-    app.post('/register', function(req, res) {
+    app.post('/register', function(req, res, next) {
         var user = new User({
             email: req.body.email,
             name: req.body.name
@@ -70,7 +71,8 @@ module.exports = function (app) {
                 res.send(err)
             } else {
                 var token = newUser.generateJwt();
-                res.json(token);
+                res.cookie('access_token', token);
+                next();
             };
         });
     });
