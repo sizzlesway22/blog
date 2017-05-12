@@ -41,6 +41,24 @@ module.exports = function (app) {
         });
     });
 
+    app.post('/login', function(req, res) {
+        User.findOne({email:req.body.email}, function(err, user) {
+            if (err) {
+                res.json(err);
+            };
+            if (!user) {
+                res.json({success: false, message: 'Authentication failed. User not found.'});
+            } else if (user) {
+                if (user.validPassword(req.body.password)) {
+                    res.json({success: false, message: 'Authentication failed. Wrong password.'});
+                } else {
+                    var token = user.generateJwt();
+                    res.json(token);
+                };
+            };
+        });
+    });
+
     app.post('/register', function(req, res) {
         var user = new User({
             email: req.body.email,
@@ -54,8 +72,8 @@ module.exports = function (app) {
                 var token = newUser.generateJwt();
                 res.json(token);
             };
-        })
-    })
+        });
+    });
 
     app.get('*', function (req, res) {
         res.sendFile(__dirname + '../public/index.html'); // load the single view file (angular will handle the page changes on the front-end)

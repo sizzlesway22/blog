@@ -10,7 +10,7 @@
         vm.message = 'controllers are awesome';
 
         vm.login = function() {
-            userFactory.login({username:vm.username, password:vm.password})
+            userFactory.login({email:vm.email, password:vm.password})
             .then(function(response) {
                 vm.message = response.data;
             }, function(response) {
