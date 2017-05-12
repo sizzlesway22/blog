@@ -32,12 +32,18 @@ module.exports = function (app) {
     });
 
     app.get('/users', function(req, res) {
-        res.json(users);
+        User.find({}, function(err, users) {
+            if (err) {
+                res.json(err);
+            } else {
+                res.json(users);
+            }
+        });
     });
 
     app.post('/register', function(req, res) {
         var user = new User({
-            email: req.body.username,
+            email: req.body.email,
             name: req.body.name
         });
         user.setPassword(req.body.password);
