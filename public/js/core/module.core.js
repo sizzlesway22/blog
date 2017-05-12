@@ -15,6 +15,11 @@
                 templateUrl: 'home.html',
                 controller: 'HomeController as Home'
             })
+            .state('auth', {
+                url: '/auth',
+                templateUrl: 'auth.html',
+                controller: 'AuthController as Auth'
+            })
             .state('dashboard', {
                 url: '/dashboard',
                 templateUrl: 'dashboard.html',

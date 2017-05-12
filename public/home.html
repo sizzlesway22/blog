@@ -1,15 +1,7 @@
-<div class="container">       
-    <h2>Please sign in</h2>
-    <h3>{{Home.message}}</h3>
+<div class="container">
 
-    <form class="jumbotron">
-        <fieldset>
-            <div class="form-group">
-                <input class="form-control" ng-model="Ctrl.username" type="text">
-                <input class="form-control" ng-model="Ctrl.password" type="password">
-            </div>
-            <button type="button" class="btn btn-success" ng-click="Home.login()">Login</button>
-            <button type="button" class="btn btn-info" ng-click="Home.register()">Register</button>
-        </fieldset>
-    </form>
+    <h1>Hello</h1>
+    <h2>{{Home.message}}</h2>
+    <h3>Would you like to <a ui-sref="auth">Login</a></h3>
+
 </div>
