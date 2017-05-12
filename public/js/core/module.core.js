@@ -12,17 +12,17 @@
         $stateProvider
             .state('home', {
                 url: '/home',
-                templateUrl: 'home.html',
+                templateUrl: 'views/home.html',
                 controller: 'HomeController as Home'
             })
             .state('auth', {
                 url: '/auth',
-                templateUrl: 'auth.html',
+                templateUrl: 'views/auth.html',
                 controller: 'AuthController as Auth'
             })
             .state('dashboard', {
                 url: '/dashboard',
-                templateUrl: 'dashboard.html',
+                templateUrl: 'views/dashboard.html',
                 controller: 'DashboardController as Ctrl'
             });
 
