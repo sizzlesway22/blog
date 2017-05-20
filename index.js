@@ -36,7 +36,6 @@ app.use(function(req, res, next) {
 //app.set('superSecret', process.env.TOKEN_SECRET);
 
 // routes ======================================================================
-//app.use('/api', require('./app/api.js'));
 require('./app/routes.js')(app);
 
 // listen (start app with node server.js) ======================================

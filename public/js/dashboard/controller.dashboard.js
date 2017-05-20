@@ -7,6 +7,7 @@
 
     function DashboardController($http, userFactory, postFactory) {
         var vm = this;
+        vm.posts = [];
         vm.showForm = false;
         vm.showPosts = true;
         vm.editing = false;
@@ -26,6 +27,7 @@
             postFactory.get()
             .then(function(response) {
                 vm.posts = response.data;
+                vm.message = response.data
             }, function(response) {
                 alert(response.data);
             });
@@ -53,7 +55,7 @@
         vm.editPost = function(index) {
             vm.showForm = true;
             vm.editing = true;
-            vm.message = index;
+            vm.message = vm.posts[index]._id;
             vm.title = vm.posts[index].title;
             vm.body = vm.posts[index].body;
         };
@@ -72,9 +74,9 @@
         vm.deletePost = function() {
             var res = confirm("Are you sure you want to delete this post?");
             if (res == true) {
-                $http.delete("/api/posts/"+vm.message)
+                postFactory.delete(vm.message)
                 .then(function(response) {
-                    vm.posts = response.data;
+                    vm.message = "success"
                     vm.title = "";
                     vm.body = "";
                 }, function(response) {

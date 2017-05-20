@@ -27,6 +27,11 @@ module.exports = function (app) {
         });
     });
 
+    app.delete('/posts/:id', function(req, res, next) {
+        Post.find({_id:req.params.id}).remove().exec();
+        res.status(200);
+    });
+
     app.get('/users', function(req, res) {
         User.find({}, function(err, users) {
             if (err) {

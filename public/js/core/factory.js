@@ -34,8 +34,8 @@
 			update : function(postData) {
 				return $http.put('/posts/:id', postData);
 			},
-			delete : function() {
-				return $http.delete('/posts/:id');
+			delete : function(id) {
+				return $http.delete('/posts/' + id);
 			}
 		}
 	};
