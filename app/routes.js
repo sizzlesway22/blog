@@ -1,34 +1,30 @@
 var User = require('./models/user');
+var Post = require('./models/post');
 
 module.exports = function (app) {
 
-    var posts = [
-        {title: "first one", body: "just stuff"},
-        {title: "post deux", body: "more stuff"}
-    ];
-
-    var users = [
-        {username: "jimmy", password: "legs"},
-        {username: "me", password: "ok"}
-    ];
-
     app.get('/posts', function(req, res) {
-        res.json(posts);
+        Post.find({}, function(err, posts) {
+            if (err) {
+                res.json(err);
+            } else {
+                res.json(posts);
+            }
+        });
     });
 
     app.post('/posts', function(req, res) {
-        posts.push(req.body);
-        res.json(posts);
-    });
-
-    app.put('/posts/:id', function(req, res) {
-        posts[req.params.id] = req.body;
-        res.json(posts);
-    });
-
-    app.delete('/posts/:id', function(req, res) {
-        posts.splice([req.params.id], 1);
-        res.json(posts);
+        var post = new Post({
+            title: req.body.title,
+            body: req.body.body
+        });
+        post.save(function(err, post) {
+            if (err) {
+                res.json(err);
+            } else {
+                res.json(post);
+            }
+        });
     });
 
     app.get('/users', function(req, res) {
@@ -49,12 +45,12 @@ module.exports = function (app) {
             if (!user) {
                 res.json({success: false, message: 'Authentication failed. User not found.'});
             } else if (user) {
-                if (user.validPassword(req.body.password)) {
+                if (!user.validPassword(req.body.password)) {
                     res.json({success: false, message: 'Authentication failed. Wrong password.'});
                 } else {
                     var token = user.generateJwt();
                     res.cookie('access_token', token);
-                    next();
+                    res.json(token);
                 };
             };
         });
@@ -72,7 +68,7 @@ module.exports = function (app) {
             } else {
                 var token = newUser.generateJwt();
                 res.cookie('access_token', token);
-                next();
+                res.json(token);
             };
         });
     });

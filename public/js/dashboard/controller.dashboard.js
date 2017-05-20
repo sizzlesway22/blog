@@ -5,29 +5,29 @@
         .module('app.dashboard')
         .controller('DashboardController', DashboardController);
 
-    function DashboardController($http, myService, myFactory, userFactory) {
+    function DashboardController($http, userFactory, postFactory) {
         var vm = this;
-        vm.posts = [];
         vm.showForm = false;
-        vm.showPosts = false;
+        vm.showPosts = true;
         vm.editing = false;
         vm.post = "";
-
-        vm.fromService = myService.sayHello("Jaime");
-        vm.fromFactory = myFactory.sayGoodbye("Kevin");
         vm.message = 'this is your dashboard, using a controller';
 
         vm.getUsers = function() {
-            userFactory.get()
+            userFactory.get("/users")
             .then(function(response) {
                 vm.message = response.data;
+            }, function(response) {
+                alert(response.data);
             });
         };
 
         vm.getPosts = function() {
-            $http.get("/posts")
+            postFactory.get()
             .then(function(response) {
                 vm.posts = response.data;
+            }, function(response) {
+                alert(response.data);
             });
         };
 
@@ -39,14 +39,15 @@
         }
 
         vm.addPost = function() {
-            $http.post("/posts", {title:vm.title, body:vm.body})
+            postFactory.post({title:vm.title, body:vm.body})
             .then(function(response) {
                 vm.posts = response.data;
             }, function(response) {
-                alert(response);
+                alert(response.message);
             });
             vm.title = "";
             vm.body = "";
+            vm.getPosts();
         };
 
         vm.editPost = function(index) {
@@ -58,7 +59,7 @@
         };
 
         vm.commitEdit = function() {
-            $http.put("/posts/"+vm.message, {title:vm.title, body:vm.body})
+            $http.put("/api/posts/"+vm.message, {title:vm.title, body:vm.body})
             .then(function(response) {
                 vm.posts = response.data;
                 vm.title = "";
@@ -71,7 +72,7 @@
         vm.deletePost = function() {
             var res = confirm("Are you sure you want to delete this post?");
             if (res == true) {
-                $http.delete("/posts/"+vm.message)
+                $http.delete("/api/posts/"+vm.message)
                 .then(function(response) {
                     vm.posts = response.data;
                     vm.title = "";

@@ -3,7 +3,8 @@
 
     angular
         .module('app.core')
-        .factory('userFactory', Users);
+        .factory('userFactory', Users)
+		.factory('postFactory', Posts);
 
     function Users($http) {
         return {
@@ -20,6 +21,23 @@
 				return $http.delete('/users/' + id);
 			}
 		}
-    }
+    };
+
+	function Posts($http) {
+		return {
+			get : function() {
+				return $http.get('/posts');
+			},
+			post : function(postData) {
+				return $http.post('/posts', postData);
+			},
+			update : function(postData) {
+				return $http.put('/posts/:id', postData);
+			},
+			delete : function() {
+				return $http.delete('/posts/:id');
+			}
+		}
+	};
 
 })();

@@ -1,6 +1,6 @@
 <div class="container">
     <h1>My current post: {{Ctrl.message}}</h1>
-    <button type="button" class="btn btn-info" ng-click="Ctrl.showPosts = !Ctrl.showPosts">Show Posts</button>
+    <button type="button" class="btn btn-info" ng-click="Ctrl.getPosts()">Show Posts</button>
     <br><br>
     <div class="postTiles" ng-if="Ctrl.showPosts" ng-repeat="post in Ctrl.posts" ng-click="Ctrl.editPost($index)">
         <h3>{{post.title}}</h3><hr>
