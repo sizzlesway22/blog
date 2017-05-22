@@ -11,7 +11,17 @@ var methodOverride = require('method-override');
 var sass = require('express-sass-middleware');
 
 // configuration ===============================================================
-mongoose.connect(database.localUrl);
+var options = { server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } }, 
+                replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } } }; 
+
+mongoose.connect(process.env.MONGOLAB_URI, options);
+//mongoose.connect(database.localUrl);
+
+var conn = mongoose.connection;             
+ 
+conn.on('error', console.error.bind(console, 'connection error:'));  
+ 
+conn.once('open', function() {
 
 app.get('/css/styles.css', sass({
     file: './sass/styles.sass',
@@ -31,9 +41,9 @@ app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
     next();
 });
+app.set('superSecret', process.env.TOKEN_SECRET);
 
 // passport ====================================================================
-//app.set('superSecret', process.env.TOKEN_SECRET);
 
 // routes ======================================================================
 require('./app/routes.js')(app);
@@ -41,3 +51,4 @@ require('./app/routes.js')(app);
 // listen (start app with node server.js) ======================================
 app.listen(port);
 console.log("App listening on port " + port);
+});
