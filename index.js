@@ -14,7 +14,7 @@ var sass = require('express-sass-middleware');
 var options = { server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } }, 
                 replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } } }; 
 
-mongoose.connect(process.env.MONGOLAB_URI, options);
+mongoose.connect(process.env.MONGODB_URI, options);
 //mongoose.connect(database.localUrl);
 
 var conn = mongoose.connection;             
