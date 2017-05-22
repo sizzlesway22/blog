@@ -16,7 +16,7 @@
         vm.message = 'this is your user id: ' + vm.userId;
 
         vm.getUsers = function() {
-            userFactory.get("/users")
+            userFactory.get()
             .then(function(response) {
                 vm.message = response.data;
             }, function(response) {

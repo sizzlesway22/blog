@@ -3,16 +3,10 @@
 
     angular
         .module('app.core', ['ui.router'])
-        .factory('myInterceptor', myInterceptor)
-        .config(function($httpProvider) {
-            $httpProvider.interceptors.push('testInterceptor');
-        })
-        .config(config);
+        .config(config)
+        .factory('myInterceptor', myInterceptor);
 
-    function config($stateProvider, $urlRouterProvider) {
-
-        $urlRouterProvider.otherwise('/home');
-        
+    function config($stateProvider, $urlRouterProvider, $httpProvider) {        
         $stateProvider
             .state('home', {
                 url: '/home',
@@ -29,15 +23,19 @@
                 templateUrl: 'views/dashboard.html',
                 controller: 'DashboardController as Ctrl'
             });
-
+        $urlRouterProvider.otherwise('/home');
+        $httpProvider.interceptors.push('myInterceptor');
         //$locationProvider.html5Mode(true);
     }
 
     function myInterceptor() {
         return {
             request: function(config) {
-                config.headers['Authorization'] = myService.getId();
-                return config;
+                var id = myService.getId();
+                if (id) {
+                    config.headers['Authorization'] = myService.getId();
+                    return config;
+                } else return;
             }
         };
     }
