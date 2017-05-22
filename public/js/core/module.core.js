@@ -3,6 +3,10 @@
 
     angular
         .module('app.core', ['ui.router'])
+        .factory('myInterceptor', myInterceptor)
+        .config(function($httpProvider) {
+            $httpProvider.interceptors.push('testInterceptor');
+        })
         .config(config);
 
     function config($stateProvider, $urlRouterProvider) {
@@ -27,6 +31,15 @@
             });
 
         //$locationProvider.html5Mode(true);
+    }
+
+    function myInterceptor() {
+        return {
+            request: function(config) {
+                config.headers['Authorization'] = myService.getId();
+                return config;
+            }
+        };
     }
 
 })();

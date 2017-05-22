@@ -8,6 +8,10 @@ var postSchema = new mongoose.Schema({
   },
   body: {
     type: String
+  },
+  author: {
+  	type: mongoose.Schema.Types.ObjectId,
+  	ref: 'User'
   }
 });
 

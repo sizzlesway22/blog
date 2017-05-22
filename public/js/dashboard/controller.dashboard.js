@@ -5,14 +5,15 @@
         .module('app.dashboard')
         .controller('DashboardController', DashboardController);
 
-    function DashboardController($http, userFactory, postFactory) {
+    function DashboardController($http, myService, userFactory, postFactory) {
         var vm = this;
         vm.posts = [];
         vm.showForm = false;
         vm.showPosts = true;
         vm.editing = false;
+        vm.userId = myService.getId();
         vm.post = "";
-        vm.message = 'this is your dashboard, using a controller';
+        vm.message = 'this is your user id: ' + vm.userId;
 
         vm.getUsers = function() {
             userFactory.get("/users")
@@ -41,7 +42,7 @@
         }
 
         vm.addPost = function() {
-            postFactory.post({title:vm.title, body:vm.body})
+            postFactory.post({title:vm.title, body:vm.body, id:vm.userId})
             .then(function(response) {
                 vm.posts = response.data;
             }, function(response) {

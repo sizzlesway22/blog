@@ -5,7 +5,6 @@
     <div class="postTiles" ng-if="Ctrl.showPosts" ng-repeat="post in Ctrl.posts" ng-click="Ctrl.editPost($index)">
         <h3>{{post.title}}</h3><hr>
         <h4>{{post.body}}</h4>
-        <h4>{{post.id}}
     </div>
     <div class="clearfix"></div>
     <br><br>
@@ -32,8 +31,6 @@
 
             <div>
                 <my-directive></my-directive>
-                <p ng-bind="Ctrl.fromService"></p>
-                <p ng-bind="Ctrl.fromFactory"></p>
             </div>
             
 <div>

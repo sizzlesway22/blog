@@ -4,7 +4,10 @@ var Post = require('./models/post');
 module.exports = function (app) {
 
     app.get('/posts', function(req, res) {
-        Post.find({}, function(err, posts) {
+        var me = req.headers.authorization;
+        console.log('this is me: ' + me);
+        Post.find({author:me})
+        .exec(function(err, posts) {
             if (err) {
                 res.json(err);
             } else {
@@ -16,7 +19,8 @@ module.exports = function (app) {
     app.post('/posts', function(req, res) {
         var post = new Post({
             title: req.body.title,
-            body: req.body.body
+            body: req.body.body,
+            author: req.body.id
         });
         post.save(function(err, post) {
             if (err) {
@@ -43,7 +47,9 @@ module.exports = function (app) {
     });
 
     app.post('/login', function(req, res, next) {
-        User.findOne({email:req.body.email}, function(err, user) {
+        User.findOne({email:req.body.email})
+        .populate('posts')
+        .exec(function(err, user) {
             if (err) {
                 res.json(err);
             };
@@ -55,7 +61,7 @@ module.exports = function (app) {
                 } else {
                     var token = user.generateJwt();
                     res.cookie('access_token', token);
-                    res.json(token);
+                    res.json(user._id);
                 };
             };
         });
@@ -73,7 +79,7 @@ module.exports = function (app) {
             } else {
                 var token = newUser.generateJwt();
                 res.cookie('access_token', token);
-                res.json(token);
+                res.json(newUser._id);
             };
         });
     });

@@ -13,7 +13,8 @@ var userSchema = new mongoose.Schema({
     required: true
   },
   hash: String,
-  salt: String
+  salt: String,
+  posts : [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }]
 });
 
 // methods ======================
@@ -36,7 +37,7 @@ userSchema.methods.generateJwt = function() {
     email: this.email,
     name: this.name,
     exp: parseInt(expiry.getTime() / 1000),
-  }, app.get('superSecret')); // DO NOT KEEP YOUR SECRET IN THE CODE!
+  }, process.env.TOKEN_SECRET); // DO NOT KEEP YOUR SECRET IN THE CODE!
 };
 
 // create the model for users and expose it to our app

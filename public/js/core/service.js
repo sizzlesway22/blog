@@ -3,12 +3,23 @@
 
     angular
         .module('app.core')
-        .service('myService', testService)
+        .service('myService', userService)
         .factory('myFactory', testFactory);
 
-    function testService() {
-        this.sayHello = function(text) {
-            return "Service says \"Hello " + text + "\"";
+    function userService($http) {
+        var userId;
+
+        return {
+            getId: getId,
+            setId: setId
+        };
+
+        function getId() {
+            return userId;
+        };
+
+        function setId(value) {
+            userId = value;
         };
     };
 
