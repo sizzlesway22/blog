@@ -1,13 +1,14 @@
 var User = require('./models/user');
 var Post = require('./models/post');
+var jwt = require('jsonwebtoken');
 
 module.exports = function (app) {
 
-    app.get('/posts', function(req, res) {
-        var me = req.headers.authorization;
-        console.log('this is me: ' + me);
-        Post.find({author:me})
-        .exec(function(err, posts) {
+    app.get('/posts', ensureAuthorized, function(req, res) {
+        //TODO: Change the VERIFY method to be async
+        var decoded = jwt.verify(req.token, process.env.TOKEN_SECRET);
+        req.id = decoded._id;
+        Post.find({author: req.id}, function(err, posts) {
             if (err) {
                 res.json(err);
             } else {
@@ -16,11 +17,11 @@ module.exports = function (app) {
         });
     });
 
-    app.post('/posts', function(req, res) {
+    app.post('/posts', ensureAuthorized, function(req, res) {
         var post = new Post({
             title: req.body.title,
             body: req.body.body,
-            author: req.body.id
+            author: req.userId
         });
         post.save(function(err, post) {
             if (err) {
@@ -60,8 +61,7 @@ module.exports = function (app) {
                     res.json({success: false, message: 'Authentication failed. Wrong password.'});
                 } else {
                     var token = user.generateJwt();
-                    res.cookie('access_token', token);
-                    res.json(user._id);
+                    res.json(token);
                 };
             };
         });
@@ -78,9 +78,35 @@ module.exports = function (app) {
                 res.send(err)
             } else {
                 var token = newUser.generateJwt();
-                res.cookie('access_token', token);
-                res.json(newUser._id);
+                res.json(token);
             };
+        });
+    });
+
+    function ensureAuthorized(req, res, next) {
+        var bearerToken;
+        var bearerHeader = req.headers["authorization"];
+        if (typeof bearerHeader !== 'undefined') {
+            var bearer = bearerHeader.split(" ");
+            bearerToken = bearer[1];
+            req.token = bearerToken;
+            next();
+        } else {
+            res.send(403);
+        }
+    };
+
+    app.get('/me', ensureAuthorized, function(req, res) {
+        User.findOne({_id: req.userId}, function(err, user) {
+            if (err) {
+                res.json({
+                    data: "Error occured: " + err
+                });
+            } else {
+                res.json({
+                    data: user
+                });
+            }
         });
     });
 

@@ -5,15 +5,15 @@
         .module('app.dashboard')
         .controller('DashboardController', DashboardController);
 
-    function DashboardController($http, myService, userFactory, postFactory) {
+    function DashboardController($http, $localStorage, $location, myService, userFactory, postFactory) {
         var vm = this;
         vm.posts = [];
         vm.showForm = false;
         vm.showPosts = true;
         vm.editing = false;
+        vm.user = userFactory.me();
         vm.userId = myService.getId();
-        vm.post = "";
-        vm.message = 'this is your user id: ' + vm.userId;
+        vm.message = 'Hello ' + vm.userId;
 
         vm.getUsers = function() {
             userFactory.get()
@@ -28,7 +28,6 @@
             postFactory.get()
             .then(function(response) {
                 vm.posts = response.data;
-                vm.message = response.data
             }, function(response) {
                 alert(response.data);
             });
@@ -50,7 +49,7 @@
             });
             vm.title = "";
             vm.body = "";
-            vm.getPosts();
+            //vm.getPosts();
         };
 
         vm.editPost = function(index) {
@@ -86,9 +85,15 @@
             } else {
                 return;
             }
-        }
+        };
 
-        vm.getPosts();
+        vm.logout = function() {
+            userFactory.logout();
+            $location.path('home');
+        };
+
+        vm.token = $localStorage.token;
+        //vm.getPosts();
     };
 
 })();
