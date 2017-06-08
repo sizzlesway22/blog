@@ -5,9 +5,6 @@ var jwt = require('jsonwebtoken');
 module.exports = function (app) {
 
     app.get('/posts', ensureAuthorized, function(req, res) {
-        //TODO: Change the VERIFY method to be async
-        var decoded = jwt.verify(req.token, process.env.TOKEN_SECRET);
-        req.id = decoded._id;
         Post.find({author: req.id}, function(err, posts) {
             if (err) {
                 res.json(err);
@@ -21,7 +18,7 @@ module.exports = function (app) {
         var post = new Post({
             title: req.body.title,
             body: req.body.body,
-            author: req.userId
+            author: req.id
         });
         post.save(function(err, post) {
             if (err) {
@@ -90,6 +87,9 @@ module.exports = function (app) {
             var bearer = bearerHeader.split(" ");
             bearerToken = bearer[1];
             req.token = bearerToken;
+            //TODO: Change the VERIFY method to be async
+            var decoded = jwt.verify(req.token, process.env.TOKEN_SECRET);
+            req.id = decoded._id;
             next();
         } else {
             res.send(403);
