@@ -9,11 +9,16 @@
         var vm = this;
         vm.posts = [];
         vm.showForm = false;
+        vm.loggedin = true;
         vm.showPosts = true;
         vm.editing = false;
         vm.user = userFactory.me();
         vm.userId = myService.getId();
         vm.message = 'Hello ' + vm.userId;
+
+        if (!vm.userId) {
+            vm.loggedin = false
+        };
 
         vm.getUsers = function() {
             userFactory.get()

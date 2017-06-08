@@ -12,9 +12,14 @@
                 templateUrl: 'views/home.html',
                 controller: 'HomeController as Home'
             })
-            .state('auth', {
-                url: '/auth',
-                templateUrl: 'views/auth.html',
+            .state('login', {
+                url: '/login',
+                templateUrl: 'views/login.html',
+                controller: 'AuthController as Auth'
+            })
+            .state('register', {
+                url: '/register',
+                templateUrl: 'views/register.html',
                 controller: 'AuthController as Auth'
             })
             .state('dashboard', {
