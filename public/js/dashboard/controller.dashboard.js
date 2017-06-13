@@ -53,7 +53,6 @@
         vm.addPost = function() {
             postFactory.post({title:vm.title, body:vm.body, id:vm.userId})
             .then(function(response) {
-                console.log("this is response.data.body " +response.data.body);
                 var update = postService.addPost(response.data);
                 vm.posts = update;
             }, function(response) {
