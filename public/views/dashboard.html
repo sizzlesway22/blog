@@ -21,7 +21,7 @@
             <button type="button" class="btn btn-danger" ng-click="Ctrl.newPost()">Cancel</button>
             <button type="button" class="btn btn-success" ng-if="!Ctrl.editing" ng-click="Ctrl.addPost()">Submit</button>
             <button type="button" class="btn btn-success" ng-if="Ctrl.editing" ng-click="Ctrl.commitEdit()">Edit</button>
-            <button type="button" class="btn btn-warning" ng-if="Ctrl.editing" ng-click="Ctrl.newPost()">Clear Form</button>
+            <button type="button" class="btn btn-warning" ng-if="Ctrl.editing" ng-click="Ctrl.clearForm()">Clear Form</button>
             <button type="button" class="btn btn-info" ng-if="Ctrl.editing" ng-click="Ctrl.deletePost()">Delete</button>
         </fieldset>
     </form>

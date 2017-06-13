@@ -20,6 +20,11 @@
             vm.loggedin = false
         };
 
+        vm.clearForm = function() {
+            vm.title = "";
+            vm.body = "";
+        };
+
         vm.getUsers = function() {
             userFactory.get()
             .then(function(response) {
@@ -42,20 +47,19 @@
         vm.newPost = function() {
             vm.showForm = !vm.showForm;
             vm.editing = false;
-            vm.title = "";
-            vm.body = "";
+            vm.clearForm();
         }
 
         vm.addPost = function() {
             postFactory.post({title:vm.title, body:vm.body, id:vm.userId})
             .then(function(response) {
-                vm.posts = response.data;
+                console.log("this is response.data.body " +response.data.body);
+                var update = postService.addPost(response.data);
+                vm.posts = update;
             }, function(response) {
                 alert(response.message);
             });
-            vm.title = "";
-            vm.body = "";
-            //vm.getPosts();
+            vm.clearForm();
         };
 
         vm.editPost = function(index) {

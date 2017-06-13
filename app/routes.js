@@ -30,12 +30,12 @@ module.exports = function (app) {
                     } else {
                         user.posts.push(post._id);
                         user.save(function(err, user) {
-                        if (err) {
-                            res.json(err);
-                        } else {
-                            res.json(post);
-                        }
-                    })
+                            if (err) {
+                                res.json(err);
+                            } else {
+                                res.status(201).json(post);
+                            }
+                        })
                     }
                 })
             }

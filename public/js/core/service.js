@@ -29,7 +29,8 @@
 
         return {
             getPosts: getPosts,
-            setPosts: setPosts
+            setPosts: setPosts,
+            addPost: addPost
         };
 
         function getPosts() {
@@ -39,6 +40,11 @@
         function setPosts(value) {
             posts = value;
         };
+
+        function addPost(post) {
+            posts.push(post);
+            return posts;
+        }
     };
 
     function testFactory() {
