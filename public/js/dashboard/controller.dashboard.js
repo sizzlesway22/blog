@@ -5,9 +5,9 @@
         .module('app.dashboard')
         .controller('DashboardController', DashboardController);
 
-    function DashboardController($http, $localStorage, $location, myService, userFactory, postFactory) {
+    function DashboardController($http, $localStorage, $location, myService, postService, userFactory, postFactory) {
         var vm = this;
-        vm.posts = [];
+        vm.posts = postService.getPosts();
         vm.showForm = false;
         vm.loggedin = true;
         vm.showPosts = true;
@@ -30,6 +30,7 @@
         };
 
         vm.getPosts = function() {
+            vm.showPosts = !vm.showPosts;
             postFactory.get()
             .then(function(response) {
                 vm.posts = response.data;

@@ -4,6 +4,7 @@
     angular
         .module('app.core')
         .service('myService', userService)
+        .service('postService', postService)
         .factory('myFactory', testFactory);
 
     function userService($http) {
@@ -20,6 +21,23 @@
 
         function setId(value) {
             userId = value;
+        };
+    };
+
+    function postService() {
+        var posts = [];
+
+        return {
+            getPosts: getPosts,
+            setPosts: setPosts
+        };
+
+        function getPosts() {
+            return posts;
+        };
+
+        function setPosts(value) {
+            posts = value;
         };
     };
 

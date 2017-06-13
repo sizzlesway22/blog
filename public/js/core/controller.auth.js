@@ -5,15 +5,15 @@
         .module('app')
         .controller('AuthController', AuthController);
 
-    function AuthController($http, $location, $localStorage, myService, myFactory, userFactory) {
+    function AuthController($http, $location, $localStorage, myService, postService, myFactory, userFactory) {
         var vm = this;
         vm.message = 'controllers are awesome';
 
         vm.login = function() {
             userFactory.login({email:vm.email, password:vm.password})
             .then(function(response) {
-                console.log(response.data);
-                $localStorage.token = response.data;
+                $localStorage.token = response.data.token;
+                postService.setPosts(response.data.posts);
                 $location.path('dashboard');
             }, function(response) {
                 vm.message = "couldn't log you in, sorry";

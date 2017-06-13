@@ -24,14 +24,33 @@ module.exports = function (app) {
             if (err) {
                 res.json(err);
             } else {
-                res.json(post);
+                User.findById({_id:req.id}, function(err, user) {
+                    if (err) {
+                        res.json(err);
+                    } else {
+                        user.posts.push(post._id);
+                        user.save(function(err, user) {
+                        if (err) {
+                            res.json(err);
+                        } else {
+                            res.json(post);
+                        }
+                    })
+                    }
+                })
             }
         });
     });
 
     app.delete('/posts/:id', function(req, res, next) {
-        Post.find({_id:req.params.id}).remove().exec();
-        res.status(200);
+        Post.findByIdAndRemove({_id:req.params.id}, function(err, post) {
+            if (err) {
+                res.json(err);
+            } else {
+                res.status(201);
+                next();
+            }
+        });
     });
 
     app.get('/users', function(req, res) {
@@ -58,7 +77,10 @@ module.exports = function (app) {
                     res.json({success: false, message: 'Authentication failed. Wrong password.'});
                 } else {
                     var token = user.generateJwt();
-                    res.json(token);
+                    res.json({
+                        token: token,
+                        posts: user.posts
+                    });
                 };
             };
         });
