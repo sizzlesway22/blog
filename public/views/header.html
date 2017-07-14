@@ -1,3 +1,4 @@
+<div ng-controller="HeaderController as vm">
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -13,9 +14,11 @@
 
                 <li><a ui-sref="login">Login</a></li>
                 <li><a ui-sref="dashboard">Dashboard</a></li>
-                <li><a ui-sref="profile">Profile</a></li>
+                <li><a ui-sref="profile" ng-if="vm.loggedin">Profile</a></li>
+                <li><a>Hi {{vm.me}}</a></li>
 
             </ul>
         </div>
     </div>
 </nav>
+</div>

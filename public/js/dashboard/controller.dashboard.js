@@ -5,19 +5,21 @@
         .module('app.dashboard')
         .controller('DashboardController', DashboardController);
 
-    function DashboardController($http, $localStorage, $location, myService, postService, userFactory, postFactory) {
+    function DashboardController($scope, $http, $localStorage, $location, myService, postService, userFactory, postFactory) {
         var vm = this;
         vm.posts = postService.getPosts();
         vm.showForm = false;
-        vm.loggedin = true;
+        vm.showUsers = false;
+        vm.loggedin = false;
         vm.showPosts = true;
         vm.editing = false;
+        vm.users = [];
         vm.user = userFactory.me();
         vm.userId = myService.getId();
-        vm.message = 'Hello ' + vm.userId;
+        vm.message = 'Hello ' + vm.user.name;
 
-        if (!vm.userId) {
-            vm.loggedin = false
+        if (vm.user._id) {
+            vm.loggedin = true;
         };
 
         vm.clearForm = function() {
@@ -26,9 +28,10 @@
         };
 
         vm.getUsers = function() {
+            vm.showUsers = !vm.showUsers;
             userFactory.get()
             .then(function(response) {
-                vm.message = response.data;
+                vm.users = response.data;
             }, function(response) {
                 alert(response.data);
             });
@@ -38,6 +41,7 @@
             vm.showPosts = !vm.showPosts;
             postFactory.get()
             .then(function(response) {
+                postService.setPosts(response.data);
                 vm.posts = response.data;
             }, function(response) {
                 alert(response.data);
@@ -73,8 +77,7 @@
             $http.put("/api/posts/"+vm.message, {title:vm.title, body:vm.body})
             .then(function(response) {
                 vm.posts = response.data;
-                vm.title = "";
-                vm.body = "";
+                vm.clearForm();
             }, function(response) {
                 alert(response);
             });
@@ -85,9 +88,8 @@
             if (res == true) {
                 postFactory.delete(vm.message)
                 .then(function(response) {
-                    vm.message = "success"
-                    vm.title = "";
-                    vm.body = "";
+                    vm.clearForm();
+                    vm.getPosts();
                 }, function(response) {
                     alert(response);
                 });
@@ -97,6 +99,7 @@
         };
 
         vm.logout = function() {
+            postService.setPosts([]);
             userFactory.logout();
             $location.path('home');
         };

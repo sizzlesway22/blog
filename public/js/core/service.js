@@ -9,10 +9,13 @@
 
     function userService($http) {
         var userId;
+        var userName;
 
         return {
             getId: getId,
-            setId: setId
+            setId: setId,
+            getName: getName,
+            setName: setName
         };
 
         function getId() {
@@ -22,6 +25,14 @@
         function setId(value) {
             userId = value;
         };
+
+        function getName() {
+            return userName;
+        };
+
+        function setName(value) {
+            userName = value;
+        };
     };
 
     function postService() {
@@ -30,7 +41,8 @@
         return {
             getPosts: getPosts,
             setPosts: setPosts,
-            addPost: addPost
+            addPost: addPost,
+            removePost: removePost
         };
 
         function getPosts() {
@@ -43,6 +55,12 @@
 
         function addPost(post) {
             posts.push(post);
+            return posts;
+        };
+
+        function removePost(postTitle) {
+            var index = posts.indexOf(post);
+            posts.splice(index, 1);
             return posts;
         }
     };

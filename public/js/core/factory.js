@@ -28,8 +28,14 @@
         return {
             me : function() {
 				var currentUser = getUserFromToken();
-        		myService.setId(currentUser._id);
-                return currentUser;
+				if (!currentUser) {
+					console.log('currentUser is empty');
+					return false;
+				} else {
+					myService.setId(currentUser._id);
+					myService.setName(currentUser.name);
+                	return currentUser;
+				}
             },
 			get : function() {
 				return $http.get('/users');

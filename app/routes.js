@@ -42,13 +42,12 @@ module.exports = function (app) {
         });
     });
 
-    app.delete('/posts/:id', function(req, res, next) {
+    app.delete('/posts/:id', function(req, res) {
         Post.findByIdAndRemove({_id:req.params.id}, function(err, post) {
             if (err) {
                 res.json(err);
             } else {
-                res.status(201);
-                next();
+                res.status(201).json({message:'Post was deleted'});
             }
         });
     });
